@@ -6,6 +6,9 @@
         },
         {
             "path": "sam-app"
+        },
+        {
+            "path": "sam-app3"
         }
     ]
 }
