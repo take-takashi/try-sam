@@ -9,7 +9,7 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
     Function:
         Timeout: 5
         MemorySize: 128
-        Runtime: python3.10
+        Runtime: python3.11
 
 Resources:
     HelloWorldFunction:
