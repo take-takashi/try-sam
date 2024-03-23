@@ -247,3 +247,90 @@ Commands you can use next
 [*] Validate SAM template: cd sam-app && sam validate
 [*] Test Function in the Cloud: cd sam-app && sam sync --stack-name {stack-name} --watch
 ```
+
+## Sam deploy
+
+```bash
+@take-takashi ➜ /workspaces/try-sam/sam-app (main) $ sam deploy -g
+
+Configuring SAM deploy
+======================
+
+        Looking for config file [samconfig.toml] :  Found
+        Reading default arguments  :  Success
+
+        Setting default arguments for 'sam deploy'
+        =========================================
+        Stack Name [sam-app]: 
+        AWS Region [ap-northeast-1]: 
+        #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+        Confirm changes before deploy [Y/n]: 
+        #SAM needs permission to be able to create roles to connect to the resources in your template
+        Allow SAM CLI IAM role creation [Y/n]: 
+        #Preserves the state of previously provisioned resources when an operation fails
+        Disable rollback [y/N]: 
+        HelloWorldFunction has no authentication. Is this okay? [y/N]: y
+        Save arguments to configuration file [Y/n]: Y
+        SAM configuration file [samconfig.toml]: 
+        SAM configuration environment [default]: 
+
+        Looking for resources needed for deployment:
+
+        Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-vurujwdlvecn
+        A different default S3 bucket can be set in samconfig.toml and auto resolution of buckets turned off by setting resolve_s3=False
+                                                                                                                                                                                           
+        Parameter "stack_name=sam-app" in [default.deploy.parameters] is defined as a global parameter [default.global.parameters].                                                        
+        This parameter will be only saved under [default.global.parameters] in /workspaces/try-sam/sam-app/samconfig.toml.                                                                 
+
+        Saved arguments to config file
+        Running 'sam deploy' for future deployments will use the parameters saved above.
+        The above parameters can be changed by modifying samconfig.toml
+        Learn more about samconfig.toml syntax at 
+        https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+
+        Uploading to sam-app/9d8f96f2296387a2cd19f1f6db20177d  13784622 / 13784622  (100.00%)
+
+        Deploying with following values
+        ===============================
+        Stack name                   : sam-app
+        Region                       : ap-northeast-1
+        Confirm changeset            : True
+        Disable rollback             : False
+        Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-vurujwdlvecn
+        Capabilities                 : ["CAPABILITY_IAM"]
+        Parameter overrides          : {}
+        Signing Profiles             : {}
+
+Initiating deployment
+=====================
+
+        Uploading to sam-app/8ea31750c99f6036f155eaf0fc9cb238.template  1322 / 1322  (100.00%)
+
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Operation                                     LogicalResourceId                             ResourceType                                  Replacement                                 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
++ Add                                         HelloWorldFunctionHelloPathPermissionProd     AWS::Lambda::Permission                       N/A                                         
++ Add                                         HelloWorldFunctionRole                        AWS::IAM::Role                                N/A                                         
++ Add                                         HelloWorldFunction                            AWS::Lambda::Function                         N/A                                         
++ Add                                         ServerlessRestApiDeployment47fc2d5f9d         AWS::ApiGateway::Deployment                   N/A                                         
++ Add                                         ServerlessRestApiProdStage                    AWS::ApiGateway::Stage                        N/A                                         
++ Add                                         ServerlessRestApi                             AWS::ApiGateway::RestApi                      N/A                                         
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Changeset created successfully. arn:aws:cloudformation:ap-northeast-1:878785745404:changeSet/samcli-deploy1711203662/e786de03-1750-470f-b07c-ff24fe1c2b1d
+
+
+Previewing CloudFormation changeset before deployment
+======================================================
+Deploy this changeset? [y/N]: N
+
+# メモ
+# HttpApiではなくRestApiを作成している。
+# 使用するpythonは大元のバージョンを合わせる必要がある。
+
+```
